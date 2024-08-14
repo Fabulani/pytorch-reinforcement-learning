@@ -1,8 +1,15 @@
 # Reinforcement Learning with PyTorch and Gymnasium
 
-We implemented Deep Q Network (DQN) and Proximal Policy Optimization (PPO) algorithms from scratch using PyTorch. The agents were trained and tested in the Gymnasium environments "Lunar Landing V2" and "Cartpole".
+We implemented multiple Reinforcement Learning (RL) algorithms from scratch using PyTorch. The agents were trained and tested in adequate environments using the `gymnasium` library.
+
+I used this repository to both store those projects and document my RL-learning (:eyes:). You'll find brief summaries of the different methods and algorithms, plus some scripts to train and test the agents.
+
+Some agents and environment combinations (e.g., MARL in the foraging environment) are not expected to work. Theoretically, they can work, but it would require smarter tricks, e.g., curriculum implementation where the tasks start easy and get progressively more challenging.
+
+## Table of contents
 
 - [Reinforcement Learning with PyTorch and Gymnasium](#reinforcement-learning-with-pytorch-and-gymnasium)
+  - [Table of contents](#table-of-contents)
   - [Quick start](#quick-start)
   - [Repository structure](#repository-structure)
   - [Terminology](#terminology)
@@ -14,6 +21,7 @@ We implemented Deep Q Network (DQN) and Proximal Policy Optimization (PPO) algor
   - [Multi Agent Reinforcement Learning (MARL)](#multi-agent-reinforcement-learning-marl)
     - [Central Q-Learning (CQL)](#central-q-learning-cql)
     - [Independent Q-Learning (IQL)](#independent-q-learning-iql)
+  - [Common issues](#common-issues)
   - [Acknowledgements](#acknowledgements)
 
 ## Quick start
@@ -23,7 +31,7 @@ pip install -r requirements.txt
 python3 lunar_lander_dqn.py
 ```
 
-Check the common issues section if you have problems with `box2d`.
+Check the [Common issues](#common-issues) section if you have problems with `box2d`.
 
 ## Repository structure
 
@@ -102,9 +110,32 @@ AIL is used in environments where defining the reward function is unfeasible, e.
 
 ## Multi Agent Reinforcement Learning (MARL)
 
+Multi-Agent Reinforcement Learning (MARL) involves multiple agents interacting within a shared environment. Each agent seeks to maximize its own cumulative reward while also adapting to the actions of other agents. The key challenges in MARL include:
+
+- coordination: agents need to learn how to work together or compete effectively;
+- scalability: the complexity of the environment increases as more agents are added;
+- non-stationarity: each agent's policy changes over time as other agents learn, making the environment non-stationary from each agent's perspective.
+
+MARL methods can be categorized into different frameworks depending on whether the agents cooperate, compete, or both.
+
 ### Central Q-Learning (CQL)
 
+Central Q-Learning (CQL) is a framework designed for MARL where a centralized entity maintains and updates a shared Q-function for all agents. This approach involves:
+
+- centralized training: during training, a central critic (or Q-function) evaluates the actions of all agents. This central critic uses global information (e.g., the state of all agents) to compute Q-values and update policies;
+- decentralized execution: during execution, each agent makes decisions based on its local observations and policy, without needing to share its actions or observations with other agents.
+
+CQL helps to mitigate the non-stationarity problem by providing a consistent Q-value estimate during training.
+
 ### Independent Q-Learning (IQL)
+
+In Independent Q-Learning (IQL), each agent uses its own Q-learning algorithm independently of other agents. Key aspects include:
+
+- individual learning: each agent maintains its own Q-function and updates it based on its own experiences and observations;
+- local Q-function: agents do not have access to global state information or the Q-functions of other agents. They treat other agents as part of the environment;
+- challenges: the primary challenge is that the environment is non-stationary due to the concurrent learning of other agents, which can destabilize the learning process.
+
+IQL is simpler to implement but may be less effective in highly interactive environments compared to approaches that consider the interactions between agents.
 
 Pros:
 
@@ -116,6 +147,16 @@ Cons:
 
 - coordinating agents is very hard. Some form of communication might be necessary;
 - trains `n` networks, which means it is `n` times slower than CQL.
+
+## Common issues
+
+1. During installation, you might get the `gymnasium[box2d]` problem, which says something like this in the error: `module not found: swig`. To fix this, follow the instructions in [this stackoverflow answer](https://stackoverflow.com/questions/76222239/pip-install-gymnasiumbox2d-not-working-on-google-colab). Basically, do the following:
+
+   ```sh
+    pip install swig
+    pip install gymnasium[box2d]
+    pip install -r requirements.txt
+   ```
 
 ## Acknowledgements
 
