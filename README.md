@@ -101,4 +101,4 @@ AIL is used in environments where defining the reward function is unfeasible, e.
 
 These short projects were developed during the UEF Summer School "Artificial Intelligence (AI) for Computer Games" lectured by Prof. Ville Hautamäki and Federico Malato.
 
-GAIL code provided by Ville Tanskanen during his guest lecture.
+GAIL code provided by Prof. Ville Tanskanen during his guest lecture.
