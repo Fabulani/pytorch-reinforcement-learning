@@ -11,6 +11,9 @@ We implemented Deep Q Network (DQN) and Proximal Policy Optimization (PPO) algor
     - [Catastrophic Forgetting](#catastrophic-forgetting)
   - [Proximal Policy Optimization (PPO)](#proximal-policy-optimization-ppo)
   - [Adversarial Imitation Learning (AIL)](#adversarial-imitation-learning-ail)
+  - [Multi Agent Reinforcement Learning (MARL)](#multi-agent-reinforcement-learning-marl)
+    - [Central Q-Learning (CQL)](#central-q-learning-cql)
+    - [Independent Q-Learning (IQL)](#independent-q-learning-iql)
   - [Acknowledgements](#acknowledgements)
 
 ## Quick start
@@ -96,6 +99,23 @@ Cons:
 - It carries over all the downsides from GANs.
 
 AIL is used in environments where defining the reward function is unfeasible, e.g., robotics, autonomous driving, and some game AI.
+
+## Multi Agent Reinforcement Learning (MARL)
+
+### Central Q-Learning (CQL)
+
+### Independent Q-Learning (IQL)
+
+Pros:
+
+- not too many actions;
+- supports partial observability;
+- trains exactly as SARL.
+
+Cons:
+
+- coordinating agents is very hard. Some form of communication might be necessary;
+- trains `n` networks, which means it is `n` times slower than CQL.
 
 ## Acknowledgements
 
