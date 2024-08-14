@@ -31,6 +31,8 @@ Common terminology used in Reinforcement Learning (and in this README) includes:
 
 ## About Deep Q Network (DQN)
 
+A Deep Q Network (DQN) approximates the optimal action-value function (Q-function) using deep neural networks. It is designed to enable agents to learn how to behave optimally in environments with large, high-dimensional state spaces, where traditional Q-learning would be computationally infeasible.
+
 In the Lunar Lander environment, we notice catastrophic forgetting during training around the 360k step. It's episodic return (reward) and losses can be seen in the following graphs:
 
 ![Episodic return](docs/lunar_lander_dqn/episodic_return.png)
